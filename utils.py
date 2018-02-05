@@ -3,21 +3,6 @@ import numpy as np
 from scipy.io import loadmat
 from tensorflow.examples.tutorials.mnist import input_data
 
-def target_data(data=None, dataset='gtsrb'):
-    if dataset == 'gtsrb':
-        target_train = np.random.permutation(len(data['image']))
-        data_t_im = data['image'][target_train[:31367], :, :, :]
-        data_t_im_test = data['image'][target_train[31367:], :, :, :]
-        data_t_label = data['label'][target_train[:31367]] + 1
-        data_t_label_test = data['label'][target_train[31367:]] + 1
-        data_t_label = dense_to_one_hot(data_t_label, num_classes=43)
-        data_t_label_test = dense_to_one_hot(data_t_label_test, num_classes=43)
-    elif dataset == 'svhn':
-        data_t_im, data_t_label, data_t_im_test, data_t_label_test = return_svhn()
-    elif dataset == 'mnist':
-        data_t_im, data_t_label, data_t_im_test, data_t_label_test = return_mnist()
-    return data_t_im, data_t_im_test, data_t_label, data_t_label_test
-
 
 def return_svhn(path_train, path_test):
     svhn_train = loadmat(path_train)
